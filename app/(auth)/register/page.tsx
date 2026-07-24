@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { api, authRequest, ApiError } from "../../../lib/api";
@@ -16,6 +16,10 @@ export default function RegisterPage() {
   const [step, setStep] = useState<"details" | "otp">("details");
   const [error, setError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    api.get("/auth/me").then(() => router.replace("/app/jobs")).catch(() => {});
+  }, [router]);
 
   async function handleSendOtp(e: React.FormEvent) {
     e.preventDefault();
