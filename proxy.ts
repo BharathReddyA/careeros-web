@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { TOKEN_COOKIE } from "./lib/backend";
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const hasToken = req.cookies.has(TOKEN_COOKIE);
 
   if (req.nextUrl.pathname.startsWith("/app") && !hasToken) {
